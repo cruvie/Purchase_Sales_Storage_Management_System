@@ -9,6 +9,7 @@ import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,9 +20,8 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Component
 @TableName(value ="users")
-public class Users implements Serializable {
+public class User implements Serializable {
     /**
      * 
      */
@@ -31,6 +31,7 @@ public class Users implements Serializable {
     /**
      * 
      */
+
     private String username;
 
     /**

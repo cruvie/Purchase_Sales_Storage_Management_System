@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!-- 1. 数据源 : DriverManagerDataSource -->
+    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+
+    <!--数据源对象-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <!--        <property name="password" value="${jdbc.password}"/>-->
+    </bean>
+    <!-- 整合MP -->
+    <!-- mybatis提供的：org.mybatis.spring.SqlSessionFactoryBean -->
+    <!-- mp提供的：com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean -->
+    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <!--         加载xxMapper.xml -->
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+
+        <property name="typeAliasesPackage">
+            <value>edu.cmk.dao</value>
+        </property>
+        <!-- 注入全局策略配置 -->
+        <!--        <property name="globalConfig" ref="globalConfig"/>-->
+    </bean>
+
+
+    <!-- 配置MP的全局策略配置 -->
+    <bean id="globalConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig">
+        <property name="dbConfig" ref="dbConfig"/>
+        <!--        输出日志-->
+        <property name="banner" value="true"/>
+
+    </bean>
+
+    <bean id="dbConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig.DbConfig">
+        <!-- 配置主键id自增 -->
+        <property name="idType" value="AUTO"></property>
+        <!--        表名是否使用驼峰转下划线命名,只对表名生效-->
+        <property name="tableUnderline" value="false"/>
+    </bean>
+
+    <bean id="configuration" class="com.baomidou.mybatisplus.core.MybatisConfiguration">
+<!--        是否开启自动驼峰命名规则（camel case）映射-->
+        <property name="mapUnderscoreToCamelCase" value="false"/>
+    </bean>
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 自动扫描 com.imooc.dao下的interface,并加入IOC容器 -->
+        <property name="basePackage" value="edu.cmk.dao"/>
+    </bean>
+
+    <!-- 4. 事务管理 : DataSourceTransactionManager -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 5. 使用声明式事务 -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+
+</beans>

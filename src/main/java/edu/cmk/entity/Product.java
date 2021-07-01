@@ -20,9 +20,8 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Component
 @TableName(value ="products")
-public class Products implements Serializable {
+public class Product implements Serializable {
     /**
      * 
      */

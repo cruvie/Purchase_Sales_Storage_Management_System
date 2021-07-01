@@ -2,11 +2,11 @@ package edu.cmk.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import edu.cmk.entity.Users;
+import edu.cmk.entity.Product;
 
 /**
  *
  */
-public interface UsersService extends IService<Users> {
+public interface ProductService extends IService<Product> {
 
 }

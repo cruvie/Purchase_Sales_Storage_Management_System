@@ -1,11 +1,11 @@
 package edu.cmk.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import edu.cmk.entity.Products;
+import edu.cmk.entity.Product;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductsMapper extends BaseMapper<Products> {
+public interface ProductMapper extends BaseMapper<Product> {
 
 }
 
