@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <input type="hidden" name="id" id="id" class="layui-input">
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label required">商品名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="productname" id="productname" lay-verify="required" lay-reqtext="用户名不能为空"
+                   placeholder="请输入商品名称" value="" class="layui-input">
+            <tip>填写商品名称</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">数量</label>
+        <div class="layui-input-block">
+            <input type="text" name="count" id="count" lay-verify="required" lay-reqtext="姓名不能为空"
+                   placeholder="请输入商品数量" value="" class="layui-input">
+            <tip>填写商品数量</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">总价</label>
+        <div class="layui-input-block">
+            <input type="text" disabled name="totalprice" id="totalprice" lay-verify="required" lay-reqtext="密码不能为空"
+                   placeholder="自动计算商品总价" value="" class="layui-input">
+            <tip>自动计算商品总价</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">购买时间</label>
+        <div class="layui-input-block">
+            <input type="date" name="saledate" id="saledate" lay-verify="required" lay-reqtext="密码不能为空"
+                   placeholder="填写商品购买时间" value="" class="layui-input">
+            <tip>填写商品购买时间</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">客户姓名</label>
+        <div class="layui-input-block">
+            <input type="date" name="username" id="username" lay-verify="required" lay-reqtext="密码不能为空"
+                   placeholder="填写客户姓名" value="" class="layui-input">
+            <tip>填写客户姓名</tip>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+</div>
+<script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+
+            console.log("提交的数据内容" + JSON.stringify(data.field))
+          //  console.log(data.field)
+
+            $.ajax({
+                type: "post",
+                url: "/saleaddedit",
+                data: data.field,//注意提交的格式
+                dataType: "json",
+                success: function (data) {
+                   // console.log(data)
+                },
+                error: function () {
+                    console.log("错误！")
+                }
+            });
+
+            // 关闭弹出层
+            var iframeIndex = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(iframeIndex);
+
+            console.log("执行完毕")
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

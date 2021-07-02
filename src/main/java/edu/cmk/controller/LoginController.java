@@ -19,13 +19,13 @@ public class LoginController {
     public User login(@RequestParam("username") String username,
                       @RequestParam("password") String password) {
 
-        QueryWrapper<User> usersQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         //指定条件,key为表字段
-        usersQueryWrapper.eq("username", username);
-        usersQueryWrapper.eq("password", password);
+        userQueryWrapper.eq("username", username);
+        userQueryWrapper.eq("password", password);
         //返回的结果最多1条，返回多条记录会报错
-        User user = userService.getOne(usersQueryWrapper);
-        //System.out.println(users);
+        User user = userService.getOne(userQueryWrapper);
+        //System.out.println(user);
 
         return user;
 

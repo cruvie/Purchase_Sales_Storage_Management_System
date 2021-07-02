@@ -5,9 +5,10 @@
     <typeAliases>
         <typeAlias type="edu.cmk.entity.User" alias="_User"></typeAlias>
         <typeAlias type="edu.cmk.entity.Product" alias="_Product"></typeAlias>
-        <typeAlias type="edu.cmk.entity.Sale" alias="Sale"></typeAlias>
+        <typeAlias type="edu.cmk.entity.Sale" alias="_Sale"></typeAlias>
+        <typeAlias type="edu.cmk.entity.AssemblePSU" alias="_AssemblePSU"></typeAlias>
 
 
-       </typeAliases>
+    </typeAliases>
 
 </configuration>

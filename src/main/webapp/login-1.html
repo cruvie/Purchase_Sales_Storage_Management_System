@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="lib/layui-v2.6.3/css/layui.css" media="all">
 
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -116,42 +116,6 @@
         }
     </style>
 
-    <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
-    <script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
-    <script src="../lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
-
-    <script type="text/javascript">
-        var employee_table
-        var select_dept
-        var select_dept_update
-        var select_dept_add
-
-        $(function () {
-            username = $("#username")
-            password = $("#password")
-
-            //获取数据，默认异步
-            queryAllEmployees()
-
-            //查询部门
-
-
-            function queryAllEmployees() {
-                $.ajax({
-                    type: "get",
-                    url: "login?username=" + username.val() + "&password=" + password.val(),
-                    dataType: "json",
-                    success: function (data) {
-                        //接受的数据ajax转为字符串格式
-                        console.log(data.length);
-                        showEmployeeData(data);
-                    }
-                });
-            }
-
-
-        })
-    </script>
 
 </head>
 <body>
@@ -160,7 +124,7 @@
         <div class="layui-form login-form">
             <form class="layui-form" action="">
                 <div class="layui-form-item logo-title">
-                    <h1>LayuiMini后台登录</h1>
+                    <h1>管理员后台登录</h1>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="username"></label>
@@ -176,53 +140,67 @@
                 <div class="layui-form-item">
                     <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住密码">
                 </div>
+
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit=""
-                            lay-filter="login">登 入
+                    <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit
+                            lay-filter="login" type="button">登 入
                     </button>
                 </div>
+
             </form>
         </div>
     </div>
 </div>
+<script src="lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
 
 <script>
-    layui.use(['form'], function () {
-        var form = layui.form,
-            layer = layui.layer;
 
-        // 登录过期的时候，跳出ifram框架
-        if (top.location != self.location) top.location = self.location;
+    $(function () {
+        layui.use(['form', 'layer'], function () {
+            var form = layui.form,
+                layer = layui.layer;
 
-        // 粒子线条背景
-        $(document).ready(function () {
-            $('.layui-container').particleground({
-                dotColor: '#7ec7fd',
-                lineColor: '#7ec7fd'
+            // 登录过期的时候，跳出ifram框架
+            if (top.location != self.location) top.location = self.location;
+
+            // 粒子线条背景
+            $(document).ready(function () {
+                $('.layui-container').particleground({
+                    dotColor: '#7ec7fd',
+                    lineColor: '#7ec7fd'
+                });
+            });
+
+            // 进行登录操作
+            form.on('submit(login)', function (data) {
+
+                //  alert(JSON.stringify(data.field))
+                data = data.field;
+
+                //获取数据，默认异步
+                $.ajax({
+                    type: "get",
+                    url: "/login?username=" + data.username + "&password=" + data.password,
+                    dataType: "json",
+                    success: function (data) {
+                        //接受的数据ajax转为字符串格式
+                       // console.log(data);
+                        if (data != null) {
+                            window.location = 'page/index.html';
+                            /*layer.msg('登录成功', function () {
+
+                            //    location.href = 'page/index.html'
+                            });*/
+                        }
+                        return false;
+                    }
+                });
+
             });
         });
-
-        // 进行登录操作
-        form.on('submit(login)', function (data) {
-            data = data.field;
-            if (data.username == '') {
-                layer.msg('用户名不能为空');
-                return false;
-            }
-            if (data.password == '') {
-                layer.msg('密码不能为空');
-                return false;
-            }
-            if (data.captcha == '') {
-                layer.msg('验证码不能为空');
-                return false;
-            }
-            layer.msg('登录成功', function () {
-                window.location = '../index.html';
-            });
-            return false;
-        });
-    });
+    })
 
 
 </script>

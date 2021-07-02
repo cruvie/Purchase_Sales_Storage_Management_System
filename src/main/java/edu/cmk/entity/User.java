@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 
 /**
  * 
- * @TableName users
+ * @TableName user
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
-@TableName(value ="users")
+@TableName(value ="user")
 public class User implements Serializable {
     /**
      * 
