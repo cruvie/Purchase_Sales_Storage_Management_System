@@ -22,12 +22,13 @@
 
     <div class="layui-form-item">
         <label class="layui-form-label required">商品名称</label>
-        <div class="layui-input-block">
-            <input type="text" name="productname" id="productname" lay-verify="required" lay-reqtext="用户名不能为空"
-                   placeholder="请输入商品名称" value="" class="layui-input">
-            <tip>填写商品名称</tip>
+        <div class="layui-input-inline">
+            <select name="productid" id="productid" lay-verify="required">
+                <option value="0">请选择商品</option>
+            </select>
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label required">数量</label>
         <div class="layui-input-block">
@@ -36,14 +37,16 @@
             <tip>填写商品数量</tip>
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label required">总价</label>
         <div class="layui-input-block">
-            <input type="text" disabled name="totalprice" id="totalprice" lay-verify="required" lay-reqtext="密码不能为空"
+            <input type="text" disabled name="totalprice" id="totalprice"
                    placeholder="自动计算商品总价" value="" class="layui-input">
             <tip>自动计算商品总价</tip>
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label required">购买时间</label>
         <div class="layui-input-block">
@@ -52,12 +55,13 @@
             <tip>填写商品购买时间</tip>
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label required">客户姓名</label>
-        <div class="layui-input-block">
-            <input type="date" name="username" id="username" lay-verify="required" lay-reqtext="密码不能为空"
-                   placeholder="填写客户姓名" value="" class="layui-input">
-            <tip>填写客户姓名</tip>
+        <div class="layui-input-inline">
+            <select name="userid" id="userid" lay-verify="required">
+                <option value="0">请选择客户</option>
+            </select>
         </div>
     </div>
 
@@ -66,20 +70,75 @@
             <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
         </div>
     </div>
+    <!--先从父页面获取值，等到ajax取值完成之后在赋值给指定元素，防止弹出页面数据未加载完全就传值-->
+    <input type="hidden" name="getproductid" id="getproductid" value="">
+    <input type="hidden" name="getuserid" id="getuserid" value="">
+
 </div>
 </div>
 <script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="../../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+
 <script>
+
+
     layui.use(['form'], function () {
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$;
 
+        var userid
+        var productid
+        $(function () {
+            userid = $("#userid")
+            $.ajax({
+                type: "get",
+                url: "/userlistsimple",
+                dataType: "json",
+                success: function (data) {
+                    //console.log(data)
+
+                    $.each(data, function (index, item) {
+                        //   console.log(item);
+                        //option  第一个参数是页面显示的值，第二个参数是传递到后台的值
+                        userid.append(new Option(item.realname, item.id));//往下拉菜单里添加元素
+
+                        userid.val(0);
+                    })
+                    //设置value（这个值就可以是在更新的时候后台传递到前台的值）为0的值为默认选中
+                    userid.val($("#getuserid").val());
+                    form.render(); //更新全部表单内容
+
+                }
+            });
+
+            productid = $("#productid")
+            $.ajax({
+                type: "get",
+                url: "/productlistsimple",
+                dataType: "json",
+                success: function (data) {
+                    //console.log(data)
+
+                    $.each(data, function (index, item) {
+                        // console.log(item);
+                        //option  第一个参数是页面显示的值，第二个参数是传递到后台的值
+                        productid.append(new Option(item.productname, item.id));//往下拉菜单里添加元素
+                        productid.val(0);
+                    })
+//设置value（这个值就可以是在更新的时候后台传递到前台的值）为0的值为默认选中
+                    productid.val($("#getproductid").val());
+                    form.render(); //更新全部表单内容
+
+                }
+            });
+        })
+
         //监听提交
         form.on('submit(saveBtn)', function (data) {
 
             console.log("提交的数据内容" + JSON.stringify(data.field))
-          //  console.log(data.field)
+            //  console.log(data.field)
 
             $.ajax({
                 type: "post",
@@ -87,7 +146,7 @@
                 data: data.field,//注意提交的格式
                 dataType: "json",
                 success: function (data) {
-                   // console.log(data)
+                    // console.log(data)
                 },
                 error: function () {
                     console.log("错误！")

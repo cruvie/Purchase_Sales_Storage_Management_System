@@ -5,16 +5,31 @@
 <mapper namespace="edu.cmk.mapper.SaleMapper">
     <resultMap id="saleResultMap" type="_AssemblePSU">
 
-        <association property="sale" javaType="_Sale" column="userId"
-                     select="getSale">
+        <association property="sale" javaType="_Sale">
+            <!--         column="id"   select="getSale"-->
+            <id property="id" column="sale_id"/>
+            <result property="count" column="count"/>
+            <result property="totalprice" column="totalPrice"/>
+            <result property="saledate" column="saleDate"/>
+            <result property="userid" column="userId"/>
+            <result property="productid" column="productId"/>
         </association>
 
-        <association property="user" javaType="_User" column="userId"
-                     select="getUser">
+        <association property="user" javaType="_User">
+            <!--              column="userId" select="getUser"-->
+            <id property="id" column="user_id"/>
+            <result property="username" column="userName"/>
+            <result property="password" column="password"/>
+            <result property="realname" column="realName"/>
         </association>
 
-        <association property="product" javaType="_Product" column="productId"
-                     select="getProduct">
+        <association property="product" javaType="_Product">
+            <!--        column="productId"    select="getProduct"-->
+            <id property="id" column="product_id"/>
+            <result property="productname" column="productName"/>
+            <result property="quantity" column="quantity"/>
+            <result property="address" column="address"/>
+            <result property="price" column="price"/>
         </association>
     </resultMap>
 
@@ -36,8 +51,23 @@
         where id = #{productId};
     </select>
 
+
     <select id="getAssembled" resultMap="saleResultMap">
-        select *
+        select sale.id    as sale_id,
+               count,
+               totalPrice,
+               saleDate,
+               userId,
+               productId,
+               user.id    as user_id,
+               userName,
+               password,
+               realName,
+               product.id as product_id,
+               productName,
+               quantity,
+               address,
+               price
         from sale,
              user,
              product
@@ -46,7 +76,21 @@
     </select>
 
     <select id="getAssembledOneById" resultMap="saleResultMap">
-        select *
+        select sale.id    as sale_id,
+               count,
+               totalPrice,
+               saleDate,
+               userId,
+               productId,
+               user.id    as user_id,
+               userName,
+               password,
+               realName,
+               product.id as product_id,
+               productName,
+               quantity,
+               address,
+               price
         from sale,
              user,
              product
@@ -56,13 +100,28 @@
     </select>
 
     <select id="getAssembledOneByName" resultMap="saleResultMap">
-        select *
+        select sale.id    as sale_id,
+               count,
+               totalPrice,
+               saleDate,
+               userId,
+               productId,
+               user.id    as user_id,
+               userName,
+               password,
+               realName,
+               product.id as product_id,
+               productName,
+               quantity,
+               address,
+               price
         from sale,
              user,
              product
-        where user.realName = #{name}
+        where user.realName like concat('%', #{name}, '%')
           and sale.userId = user.id
           and sale.productId = product.id
     </select>
+
 
 </mapper>

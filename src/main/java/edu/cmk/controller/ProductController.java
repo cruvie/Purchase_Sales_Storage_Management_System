@@ -38,6 +38,16 @@ public class ProductController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/productlistsimple")
+    public List<Product> getAllsimple() {
+        List<Product> productList;
+
+        productList = productService.list();
+
+        return productList;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/productaddedit")
     public Product productaddedit(Product product) {
 
@@ -54,7 +64,7 @@ public class ProductController {
         }
         return null;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/productdelete")
     public List<Product> productdelete(String products) {

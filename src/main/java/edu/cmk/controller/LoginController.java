@@ -25,7 +25,7 @@ public class LoginController {
         userQueryWrapper.eq("password", password);
         //返回的结果最多1条，返回多条记录会报错
         User user = userService.getOne(userQueryWrapper);
-        //System.out.println(user);
+        System.out.println(user);
 
         return user;
 

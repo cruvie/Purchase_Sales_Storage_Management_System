@@ -35,6 +35,14 @@ public class UserController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/userlistsimple")
+    public List<User> getAllsimple() {
+        List<User> userList;
+        userList = userService.list();
+        return userList;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/useraddedit")
     public User useraddedit(User user) {
 

@@ -24,9 +24,12 @@ public class testsale {
     @Test
     public void login() {
 
-        List<AssemblePSU> saleList = saleService.getAssembled();
-        System.out.println(saleList);
-
+                List<AssemblePSU> assemblePSUList = saleService.getAssembled();
+                System.out.println(assemblePSUList);
+//        AssemblePSU saleList = saleService.getAssembledOneById(2);
+//        System.out.println(saleList);
+        //        List<AssemblePSU> saleList = saleService.getAssembledOneByName("曹");
+        //        System.out.println(saleList);
 
     }
 }

@@ -23,19 +23,19 @@
           "child": [
             {
               "title": "直方图",
-              "href": "welcome-1.html",
+              "href": "../page/chart/bar_chart.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "折线图",
-              "href": "welcome-2.html",
+              "href": "../page/chart/line_chart.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "商品地图",
-              "href": "welcome-3.html",
+              "href": "../page/chart/map_chart.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -79,7 +79,6 @@
             }
           ]
         },
-
         {
           "title": "主页模板",
           "href": "",
@@ -112,8 +111,6 @@
           "icon": "fa fa-window-maximize",
           "target": "_self"
         },
-
-
         {
           "title": "系统设置",
           "href": "setting.html",
