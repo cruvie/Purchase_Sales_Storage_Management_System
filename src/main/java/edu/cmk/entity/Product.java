@@ -36,7 +36,7 @@ public class Product implements Serializable {
     /**
      * 
      */
-    private String quantity;
+    private Integer quantity;
 
     /**
      * 

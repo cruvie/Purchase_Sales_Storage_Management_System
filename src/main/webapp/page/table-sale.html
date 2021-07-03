@@ -162,10 +162,13 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['50%', '80%'],
-                    content: '../page/table/add_edit_sale.html'
+                    content: '../page/table/add_edit_sale.html',
+                    end: function () {
+                        //刷新页面,
+                        table.reload('currentTableId', {});
+                    }
                 });
-                //刷新表格
-                table.reload('currentTableId', {});
+
 
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -228,11 +231,12 @@
                         body.find('#totalprice').val(data.sale.totalprice)
                         body.find('#saledate').val(data.sale.saledate)
                         body.find('#getuserid').val(data.sale.userid)
+                    },
+                    end: function () {
+                        //刷新页面,
+                        table.reload('currentTableId', {});
                     }
                 });
-                //刷新表格
-                table.reload('currentTableId', {});
-
 
                 $(window).on("resize", function () {
                     layer.full(index);

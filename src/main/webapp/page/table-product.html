@@ -136,7 +136,11 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['50%', '50%'],
-                    content: '../page/table/add_edit_product.html'
+                    content: '../page/table/add_edit_product.html',
+                    end: function () {
+                        //刷新页面,
+                        table.reload('currentTableId', {});
+                    }
                 });
                 //刷新表格
                 table.reload('currentTableId', {});
@@ -200,6 +204,10 @@
                         body.find('#quantity').val(data.quantity)
                         body.find('#address').val(data.address)
                         body.find('#price').val(data.price)
+                    },
+                    end: function () {
+                        //刷新页面,
+                        table.reload('currentTableId', {});
                     }
                 });
                 //刷新表格

@@ -118,10 +118,12 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['50%', '50%'],
-                    content: '../page/table/add_edit_user.html'
+                    content: '../page/table/add_edit_user.html',
+                    end: function () {
+                        //刷新页面,
+                        table.reload('currentTableId', {});
+                    }
                 });
-                //刷新表格
-                table.reload('currentTableId', {});
 
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -181,11 +183,12 @@
                         body.find('#username').val(data.username)
                         body.find('#realname').val(data.realname)
                         body.find('#password').val(data.password)
+                    },
+                    end: function () {
+                        //刷新页面,
+                        table.reload('currentTableId', {});
                     }
                 });
-                //刷新表格
-                table.reload('currentTableId', {});
-
 
                 $(window).on("resize", function () {
                     layer.full(index);
