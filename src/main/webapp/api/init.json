@@ -24,13 +24,13 @@
             {
               "title": "直方图",
               "href": "../page/chart/bar_chart.html",
-              "icon": "fa fa-tachometer",
+              "icon": "fa fa-bar-chart",
               "target": "_self"
             },
             {
               "title": "折线图",
               "href": "../page/chart/line_chart.html",
-              "icon": "fa fa-tachometer",
+              "icon": "fa fa-line-chart",
               "target": "_self"
             },
             {
@@ -50,7 +50,7 @@
         {
           "title": "销售管理",
           "href": "table-sale.html",
-          "icon": "fa fa-calendar",
+          "icon": "fa fa-credit-card",
           "target": "_self"
         },
         {
