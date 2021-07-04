@@ -4,4 +4,6 @@
 - mysql
 - mybatis-plus
 - ssm
-- bootstrap
+- layui
+# 数据库
+- pssms.sql
